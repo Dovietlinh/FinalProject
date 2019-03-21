@@ -38,6 +38,7 @@ public class AddProduct extends Activity {
 
     private ImageView imageView;
     private Button btnImage;
+    private Spinner spnType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,7 @@ public class AddProduct extends Activity {
         txtName=findViewById(R.id.txtName);
         imageView=findViewById(R.id.imageProduct);
         btnImage=findViewById(R.id.btnChoose);
+        spnType=findViewById(R.id.spnType);
         List<String> listCategory=new ArrayList<>();
         listCategory.add("Hằng ngày");
         listCategory.add("Ngày Lễ");
@@ -76,6 +78,15 @@ public class AddProduct extends Activity {
             }
         });
 
+        List<String> listType=new ArrayList<>();
+        listType.add("Món Mặn");
+        listType.add("Món Canh");
+        listType.add("Món Tráng Miệng");
+        ArrayAdapter<String> adapterTyoe = new ArrayAdapter(this, android.R.layout.simple_spinner_item,listType);
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spnType.setAdapter(adapterTyoe);
+
+
     }
     private void chooseImage(){
         Intent intent = new Intent();
@@ -100,7 +111,11 @@ public class AddProduct extends Activity {
             }
         }
     }
+    int type;
     public void addProduct(View view){
         categoryID=spnCategory.getSelectedItemPosition()+1;
+        type=spnType.getSelectedItemPosition()+1;
+        Intent intent=new Intent(AddProduct.this,AddRecipes.class);
+        startActivity(intent);
     }
 }
