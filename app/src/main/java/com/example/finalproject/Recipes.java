@@ -1,6 +1,11 @@
 package com.example.finalproject;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,11 +19,11 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-public class Recipes extends AppCompatActivity {
+public class Recipes extends Activity {
 
     private TextView txtAttention, txtProcessing, txtRawMaterial;
     final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";
-    String recipesID = "";
+    int recipesID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +34,21 @@ public class Recipes extends AppCompatActivity {
         txtRawMaterial = findViewById(R.id.txtRawMaterial);
 
         Intent intent = getIntent();
-        recipesID = intent.getStringExtra("RecipesID");
-        getRecipes();
+        recipesID = intent.getIntExtra("RecipesID",0);
+        if (ContextCompat.checkSelfPermission(Recipes.this,
+                Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(Recipes.this,
+                    Manifest.permission.INTERNET)) {
+            } else {
+                ActivityCompat.requestPermissions(Recipes.this,
+                        new String[]{Manifest.permission.INTERNET},
+                        1);
+            }
+        } else {
+            getRecipes();
+        }
+
 
     }
     public void getRecipes()
