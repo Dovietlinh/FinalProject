@@ -1,7 +1,6 @@
 package com.example.finalproject;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -19,11 +18,11 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-public class Recipes extends Activity {
+public class Recipes extends AppCompatActivity {
 
     private TextView txtAttention, txtProcessing, txtRawMaterial;
     final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";
-    int recipesID;
+    String recipesID = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +33,8 @@ public class Recipes extends Activity {
         txtRawMaterial = findViewById(R.id.txtRawMaterial);
 
         Intent intent = getIntent();
-        recipesID = intent.getIntExtra("RecipesID",0);
+        recipesID = intent.getStringExtra("RecipesID");
+        // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(Recipes.this,
                 Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -48,8 +48,6 @@ public class Recipes extends Activity {
         } else {
             getRecipes();
         }
-
-
     }
     public void getRecipes()
     {
@@ -59,13 +57,13 @@ public class Recipes extends Activity {
             final String SOAP_ACTION=NAMESPACE+METHOD_NAME;
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
             request.addProperty("id", recipesID);
-            SoapSerializationEnvelope envelope=
+            SoapSerializationEnvelope envelope =
                     new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
             envelope.setOutputSoapObject(request);
             MarshalFloat marshal = new MarshalFloat();
             marshal.register(envelope);
-            HttpTransportSE androidHttpTransport=
+            HttpTransportSE androidHttpTransport =
                     new HttpTransportSE(URL);
             androidHttpTransport.call(SOAP_ACTION, envelope);
             SoapObject soapItem = (SoapObject) envelope.getResponse();

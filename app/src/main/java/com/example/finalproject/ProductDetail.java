@@ -49,8 +49,7 @@ public class ProductDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(ProductDetail.this, Recipes.class);
-                int a=product.getProductID();
-                intent1.putExtra("RecipesID", a);
+                intent1.putExtra("RecipesID", String.valueOf(product.getProductID()));
                 startActivity(intent1);
             }
         });
