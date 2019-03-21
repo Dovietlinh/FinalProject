@@ -22,7 +22,7 @@ public class Recipes extends AppCompatActivity {
 
     private TextView txtAttention, txtProcessing, txtRawMaterial;
     final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";
-    String recipesID = "";
+    int recipesID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class Recipes extends AppCompatActivity {
         txtRawMaterial = findViewById(R.id.txtRawMaterial);
 
         Intent intent = getIntent();
-        recipesID = intent.getStringExtra("RecipesID");
+        recipesID = Integer.parseInt(intent.getStringExtra("RecipesID"));
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(Recipes.this,
                 Manifest.permission.INTERNET)
