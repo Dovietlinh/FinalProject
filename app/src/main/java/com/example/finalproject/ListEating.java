@@ -97,9 +97,7 @@ public class ListEating extends Activity {
             }
 
             AdapterListEating adapterListEating = new AdapterListEating(this, R.layout.layout_eating, productList);
-            //xác nhận cập nhật giao diện
             listViewEating.setAdapter(adapterListEating);
-//            adapterListEating.notifyDataSetChanged();
         }
         catch(Exception e){}}
 }
