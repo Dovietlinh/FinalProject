@@ -70,7 +70,7 @@ public class ListEating extends Activity {
                 product.setpDescription(soapItem.getProperty("Description").toString());
                 product.setpAssess(Integer.parseInt(soapItem.getProperty("Assess").toString()));
                 product.setpType(Integer.parseInt(soapItem.getProperty("Type").toString()));
-                if(soapItem.getProperty("Status") == true) {
+                if(Boolean.parseBoolean(soapItem.getProperty("Status").toString()) == true) {
                     product.setpStatus(true);
                 }else {
                     product.setpStatus(false);
