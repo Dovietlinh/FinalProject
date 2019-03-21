@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@drawable/backgroup1"
     tools:context=".MainActivity">
 
     <Button
@@ -56,11 +56,4 @@
         app:layout_constraintTop_toBottomOf="@+id/btnAdd"
         app:layout_constraintVertical_bias="0.089" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="423dp"
-        android:layout_height="749dp"
-        android:src="@color/colorPrimary"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="-4dp" />
 </android.support.constraint.ConstraintLayout>
