@@ -7,12 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.finalproject.Entity.Product;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends Activity {
 
     private Button btnMenu;
     private Button btnRandom;
     private Button btnAdd;
     private Button btnExit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +31,7 @@ public class MainActivity extends Activity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,ListEating.class);
+                Intent intent = new Intent(MainActivity.this,ListEating.class);
                 startActivity(intent);
             }
         });
