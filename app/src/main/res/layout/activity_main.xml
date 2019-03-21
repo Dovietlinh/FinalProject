@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroup1"
+
     tools:context=".MainActivity">
 
     <Button
@@ -16,7 +16,7 @@
         android:layout_marginTop="370dp"
         android:layout_marginEnd="76dp"
         android:layout_marginBottom="8dp"
-        android:text="Danh Sách Món Ăn"
+        android:text="Thư Viện Món Ăn"
         app:layout_constraintBottom_toTopOf="@+id/btnRandom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
