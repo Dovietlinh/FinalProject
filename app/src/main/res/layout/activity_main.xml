@@ -4,56 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroup1"
+
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btnMenu"
 
         android:layout_width="259dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="370dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="8dp"
         android:text="Danh Sách Món Ăn"
+        app:layout_constraintBottom_toTopOf="@+id/btnRandom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnRandom"
         android:layout_width="259dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:text="Hôm Nay Ăn Gì"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnMenu" />
 
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="259dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="8dp"
         android:text="Chia Sẻ Công Thức Món Ăn"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnRandom" />
 
     <Button
         android:id="@+id/btnExit"
         android:layout_width="259dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Thoát"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAdd"
+        app:layout_constraintVertical_bias="0.089" />
 
-
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="423dp"
+        android:layout_height="749dp"
+        android:src="@color/colorPrimary"
+        tools:layout_editor_absoluteX="-10dp"
+        tools:layout_editor_absoluteY="-4dp" />
 </android.support.constraint.ConstraintLayout>
