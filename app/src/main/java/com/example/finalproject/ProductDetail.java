@@ -56,7 +56,6 @@ public class ProductDetail extends Activity {
             txtTypeProduct.setText("Món khác");
         }
 
-
         btnRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
