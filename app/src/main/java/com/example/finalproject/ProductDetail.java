@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,7 +20,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class ProductDetail extends AppCompatActivity {
+public class ProductDetail extends Activity {
     private TextView txtNameProduct, txtDescriptionProduct, txtAssessProduct, txtTypeProduct;
     private ImageView imageViewProduct;
     private Button btnBack, btnRecipes;
@@ -51,6 +52,12 @@ public class ProductDetail extends AppCompatActivity {
                 Intent intent1 = new Intent(ProductDetail.this, Recipes.class);
                 intent1.putExtra("RecipesID", String.valueOf(product.getProductID()));
                 startActivity(intent1);
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

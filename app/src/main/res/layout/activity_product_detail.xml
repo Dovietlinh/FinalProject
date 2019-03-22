@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/txtDescriptionProduct"
         android:layout_width="214dp"
-        android:layout_height="57dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
@@ -89,4 +89,5 @@
         android:text="Quay lại"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

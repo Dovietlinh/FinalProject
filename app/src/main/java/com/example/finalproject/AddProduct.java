@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.finalproject.Entity.Product;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -28,16 +29,24 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
+
 public class AddProduct extends Activity {
     private Spinner spnCategory;
-    int categoryID;
     private EditText txtName;
 
+    private Uri url=null;
     private Uri filePath;
     //Firebase
     private FirebaseStorage storage;
@@ -47,6 +56,7 @@ public class AddProduct extends Activity {
     private ImageView imageView;
     private Button btnImage;
     private Spinner spnType;
+    private EditText txtDescription;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +66,7 @@ public class AddProduct extends Activity {
         imageView=findViewById(R.id.imageProduct);
         btnImage=findViewById(R.id.btnChoose);
         spnType=findViewById(R.id.spnType);
+        txtDescription=findViewById(R.id.txtDescription);
         List<String> listCategory=new ArrayList<>();
         listCategory.add("Hằng ngày");
         listCategory.add("Ngày Lễ");
@@ -119,14 +130,72 @@ public class AddProduct extends Activity {
             }
         }
     }
-    int type;
+    final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";
     public void addProduct(View view){
-        categoryID=spnCategory.getSelectedItemPosition()+1;
-        type=spnType.getSelectedItemPosition()+1;
-        Intent intent=new Intent(AddProduct.this,AddRecipes.class);
-        startActivity(intent);
+        if (ContextCompat.checkSelfPermission(AddProduct.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(AddProduct.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(AddProduct.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1);
+            }
+        } else {
+            uploadImage();
+            Intent intent=new Intent(AddProduct.this,AddRecipes.class);
+            startActivity(intent);
+        }
+
+
     }
-    private Uri url;
+    public void uploadProduct(Product product){
+        try
+        {
+            final String NAMESPACE="http://tempuri.org/";
+            final String METHOD_NAME="insertProduct";
+            final String SOAP_ACTION=NAMESPACE+METHOD_NAME;
+
+            SoapObject request=new SoapObject
+                    (NAMESPACE, METHOD_NAME);
+            //tạo đối tượng SoapObject với tên cate như parameter trong service description
+            SoapObject newProduct=new
+                    SoapObject(NAMESPACE, "product");
+            //truyền giá trị cho các đối số (properties) như service desctiption
+            newProduct.addProperty("CategoryID",product.getCategoryID());
+            newProduct.addProperty("Name",product.getpName());
+            newProduct.addProperty("Image",product.getpImage());
+            newProduct.addProperty("Description",product.getpDescription());
+            newProduct.addProperty("Type",product.getpType());
+            newProduct.addProperty("Status",product.getpStatus());
+            request.addSoapObject(newProduct);
+
+            SoapSerializationEnvelope envelope=
+                    new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet=true;
+            envelope.setOutputSoapObject(request);
+
+            HttpTransportSE androidHttpTransport=
+                    new HttpTransportSE(URL);
+            androidHttpTransport.call(SOAP_ACTION, envelope);
+            //vì hàm insertCatalog trả về kiểu int
+            SoapPrimitive soapPrimitive= (SoapPrimitive)
+                    envelope.getResponse();
+            //chuyển về int để kiểm tra insert thành công hay thất bại
+            int ret=Integer.parseInt(soapPrimitive.toString());
+            //int ret=1;
+            String msg="Insert Cate Successful";
+            if(ret<=0)
+                msg="Insert Cate Failed";
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(this, "Error", Toast.LENGTH_LONG).show();
+        }
+    }
     private void uploadImage() {
 
         if(filePath != null)
@@ -148,6 +217,34 @@ public class AddProduct extends Activity {
                                     Uri downloadUrl = uri;
                                     //Do what you want with the url
                                     url=downloadUrl;
+
+                                    int categoryID=spnCategory.getSelectedItemPosition()+1;
+                                    int type=spnType.getSelectedItemPosition()+1;
+                                    String urlImage=url.toString();
+                                    String description=txtDescription.getText().toString();
+                                    Product product=new Product();
+                                    product.setCategoryID(categoryID);
+                                    product.setpDescription(description);
+                                    product.setpImage(urlImage);
+                                    product.setpName(txtName.getText().toString());
+                                    product.setpType(type);
+                                    product.setpStatus(true);
+
+                                    // Here, thisActivity is the current activity
+                                    if (ContextCompat.checkSelfPermission(AddProduct.this,
+                                            Manifest.permission.INTERNET)
+                                            != PackageManager.PERMISSION_GRANTED) {
+                                        if (ActivityCompat.shouldShowRequestPermissionRationale(AddProduct.this,
+                                                Manifest.permission.INTERNET)) {
+                                        } else {
+                                            ActivityCompat.requestPermissions(AddProduct.this,
+                                                    new String[]{Manifest.permission.INTERNET},
+                                                    1);
+                                        }
+                                    } else {
+                                        uploadProduct(product);
+                                    }
+
                                 }
                             });
                             progressDialog.dismiss();
