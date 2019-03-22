@@ -3,6 +3,7 @@ package com.example.finalproject.Entity;
 import java.io.Serializable;
 
 public class Recipes implements Serializable {
+
     private int recipesID;
     private String rawMaterial;
     private String processing;

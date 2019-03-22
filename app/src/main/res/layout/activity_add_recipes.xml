@@ -27,33 +27,31 @@
                 android:text="Công Thức Món Ăn" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/txtRawMaterial"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:ems="10"
                 android:hint="Nguyên liệu"
-                android:layout_marginTop="25dp"
-                android:inputType="textPersonName"
-                 />
+                android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/txtProcessing"
                 android:layout_width="300dp"
-                android:layout_marginTop="15dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:ems="10"
                 android:hint="Các bước thực hiện"
-                android:ems="10"
-                android:inputType="textPersonName"
-                />
+                android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/editText3"
-                android:layout_marginTop="15dp"
+                android:id="@+id/txtAttention"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Chú ý" />
+                android:hint="Chú ý"
+                android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/btnShare"

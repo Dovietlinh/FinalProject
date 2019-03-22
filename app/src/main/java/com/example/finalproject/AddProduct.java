@@ -223,7 +223,6 @@ public class AddProduct extends Activity {
                                     Uri downloadUrl = uri;
                                     //Do what you want with the url
                                     url=downloadUrl;
-
                                     int categoryID=spnCategory.getSelectedItemPosition()+1;
                                     int type=spnType.getSelectedItemPosition()+1;
                                     String urlImage=url.toString();
