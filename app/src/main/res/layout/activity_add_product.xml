@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
     <EditText
-        android:id="@+id/btnDescription"
+        android:id="@+id/txtDescription"
         android:layout_width="334dp"
         android:layout_height="129dp"
         android:layout_marginStart="44dp"
