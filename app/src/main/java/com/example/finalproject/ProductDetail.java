@@ -50,7 +50,7 @@ public class ProductDetail extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(ProductDetail.this, Recipes.class);
-                intent1.putExtra("RecipesID", String.valueOf(product.getProductID()));
+                intent1.putExtra("RecipesID", product.getProductID());
                 startActivity(intent1);
             }
         });

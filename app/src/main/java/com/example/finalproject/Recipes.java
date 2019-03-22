@@ -33,7 +33,7 @@ public class Recipes extends AppCompatActivity {
         txtRawMaterial = findViewById(R.id.txtRawMaterial);
 
         Intent intent = getIntent();
-        recipesID = Integer.parseInt(intent.getStringExtra("RecipesID"));
+        recipesID = intent.getIntExtra("RecipesID", 0);
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(Recipes.this,
                 Manifest.permission.INTERNET)
