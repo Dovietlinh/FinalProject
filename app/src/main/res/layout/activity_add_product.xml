@@ -137,7 +137,7 @@
             <Button
                 android:id="@+id/btnAddProduct"
                 android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:onClick="addProduct"
                 android:text="Next"
