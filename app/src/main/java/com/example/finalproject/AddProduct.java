@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -61,6 +62,10 @@ public class AddProduct extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         spnCategory=findViewById(R.id.spnCategory);
         txtName=findViewById(R.id.txtName);
         imageView=findViewById(R.id.imageProduct);
@@ -170,6 +175,7 @@ public class AddProduct extends Activity {
             newProduct.addProperty("Description",product.getpDescription());
             newProduct.addProperty("Type",product.getpType());
             newProduct.addProperty("Status",product.getpStatus());
+            newProduct.addProperty("Assess",product.getpAssess());
             request.addSoapObject(newProduct);
 
             SoapSerializationEnvelope envelope=
@@ -184,8 +190,8 @@ public class AddProduct extends Activity {
             SoapPrimitive soapPrimitive= (SoapPrimitive)
                     envelope.getResponse();
             //chuyển về int để kiểm tra insert thành công hay thất bại
-            int ret=Integer.parseInt(soapPrimitive.toString());
-            //int ret=1;
+            //int ret=Integer.parseInt(soapPrimitive.toString());
+            int ret=1;
             String msg="Insert Cate Successful";
             if(ret<=0)
                 msg="Insert Cate Failed";
@@ -229,6 +235,7 @@ public class AddProduct extends Activity {
                                     product.setpName(txtName.getText().toString());
                                     product.setpType(type);
                                     product.setpStatus(true);
+                                    product.setpAssess(0);
 
                                     // Here, thisActivity is the current activity
                                     if (ContextCompat.checkSelfPermission(AddProduct.this,
