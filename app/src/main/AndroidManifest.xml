@@ -18,7 +18,6 @@
         <activity android:name=".AddProduct" />
         <activity android:name=".RandomMenu" />
         <activity android:name=".ListEating" />
-        <activity android:name=".AddRecipes"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
