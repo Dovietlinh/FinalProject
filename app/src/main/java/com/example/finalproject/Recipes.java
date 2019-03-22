@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -18,7 +19,7 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-public class Recipes extends AppCompatActivity {
+public class Recipes extends Activity {
 
     private TextView txtAttention, txtProcessing, txtRawMaterial;
     final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";

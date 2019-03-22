@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.finalproject.Entity.Product;
@@ -21,9 +22,10 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class ProductDetail extends Activity {
-    private TextView txtNameProduct, txtDescriptionProduct, txtAssessProduct, txtTypeProduct;
+    private TextView txtNameProduct, txtDescriptionProduct, txtTypeProduct;
     private ImageView imageViewProduct;
     private Button btnBack, btnRecipes;
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,8 @@ public class ProductDetail extends Activity {
         imageViewProduct = findViewById(R.id.imageViewProduct);
         txtNameProduct = findViewById(R.id.txtNameProduct);
         txtDescriptionProduct = findViewById(R.id.txtDescriptionProduct);
-        txtAssessProduct = findViewById(R.id.txtAssessProduct);
         txtTypeProduct = findViewById(R.id.txtTypeProduct);
+        ratingBar = findViewById(R.id.ratingBar);
         btnBack = findViewById(R.id.btnBack);
         btnRecipes = findViewById(R.id.btnRecipes);
 
@@ -43,8 +45,17 @@ public class ProductDetail extends Activity {
         imageViewProduct.setImageBitmap(download_Image(product.getpImage()));
         txtNameProduct.setText(product.getpName());
         txtDescriptionProduct.setText(product.getpDescription());
-        txtAssessProduct.setText(String.valueOf(product.getpAssess()));
-        txtTypeProduct.setText(String.valueOf(product.getpType()));
+        ratingBar.setRating(product.getpAssess());
+        if(product.getpType() == 1){
+            txtTypeProduct.setText("Món mặn");
+        }else if(product.getpType() == 2){
+            txtTypeProduct.setText("Món canh");
+        }else if(product.getpType() == 3){
+            txtTypeProduct.setText("Món tráng miệng");
+        }else {
+            txtTypeProduct.setText("Món khác");
+        }
+
 
         btnRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
