@@ -79,7 +79,7 @@ public class AddProduct extends Activity {
         listCategory.add("Đặc sản miền Trung");
         listCategory.add("Đặc sản miền Nam");
         listCategory.add("Dã Ngoại");
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,listCategory);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line,listCategory);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spnCategory.setAdapter(adapter);
 
@@ -106,7 +106,7 @@ public class AddProduct extends Activity {
         listType.add("Món Mặn");
         listType.add("Món Canh");
         listType.add("Món Tráng Miệng");
-        ArrayAdapter<String> adapterTyoe = new ArrayAdapter(this, android.R.layout.simple_spinner_item,listType);
+        ArrayAdapter<String> adapterTyoe = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line,listType);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spnType.setAdapter(adapterTyoe);
 
