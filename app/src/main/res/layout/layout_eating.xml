@@ -21,17 +21,17 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_height="150dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="200dp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:text="TextView"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="20sp" />
@@ -39,9 +39,9 @@
         <TextView
             android:id="@+id/txtDescription"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_height="37dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="8dp"
             android:text="TextView"
             android:textSize="15sp" />

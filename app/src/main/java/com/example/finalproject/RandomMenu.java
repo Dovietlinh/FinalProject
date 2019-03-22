@@ -8,6 +8,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.finalproject.Adapter.AdapterListEating;
@@ -26,6 +28,7 @@ public class RandomMenu extends Activity {
 
     private List<Product> productList;
     private ListView listRandom;
+    private Button btnOtherMenu, btnBack;
     final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";
 
     @Override
@@ -39,6 +42,8 @@ public class RandomMenu extends Activity {
         StrictMode.setThreadPolicy(policy);
 
         listRandom = findViewById(R.id.listRandom);
+        btnOtherMenu = findViewById(R.id.btnOtherMenu);
+        btnBack = findViewById(R.id.btnBack);
         productList = new ArrayList<>();
 
         // Here, thisActivity is the current activity
@@ -55,6 +60,18 @@ public class RandomMenu extends Activity {
         } else {
             RandomMenu();
         }
+        btnOtherMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RandomMenu();
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     private void RandomMenu() {
         try{
