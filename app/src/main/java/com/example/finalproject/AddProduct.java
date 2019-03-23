@@ -225,7 +225,13 @@ public class AddProduct extends Activity {
                                     url=downloadUrl;
                                     int categoryID=spnCategory.getSelectedItemPosition()+1;
                                     int type=spnType.getSelectedItemPosition()+1;
-                                    String urlImage=url.toString();
+                                    String urlImage="";
+                                    if(url!=null){
+                                        urlImage=url.toString();
+                                    }else{
+                                        urlImage="https://firebasestorage.googleapis.com/v0/b/projectandroid-3cf66.appspot.com/o/653b6320aa80ab406cf5420f19f7a554.jpg?alt=media&token=bd46b0b1-f0dd-4024-9dff-44fd666906a8";
+                                    }
+
                                     String description=txtDescription.getText().toString();
                                     Product product=new Product();
                                     product.setCategoryID(categoryID);

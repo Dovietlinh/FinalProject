@@ -14,11 +14,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.finalproject.Adapter.AdapterListEating;
+import com.example.finalproject.Entity.Product;
 import com.example.finalproject.Entity.Recipes;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalFloat;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
@@ -75,9 +77,66 @@ public class AddRecipes extends Activity {
                     recipes.setRawMaterial(raw);
                     recipes.setAttention(attention);
                     recipes.setProcessing(processing);
+                    // Here, thisActivity is the current activity
+                    if (ContextCompat.checkSelfPermission(AddRecipes.this,
+                            Manifest.permission.INTERNET)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(AddRecipes.this,
+                                Manifest.permission.INTERNET)) {
+                        } else {
+                            ActivityCompat.requestPermissions(AddRecipes.this,
+                                    new String[]{Manifest.permission.INTERNET},
+                                    1);
+                        }
+                    } else {
+                        uploadRecipes(recipes);
+                    }
                 }
             }
         });
+    }
+    public void uploadRecipes(Recipes recipes){
+        try
+        {
+            final String NAMESPACE="http://tempuri.org/";
+            final String METHOD_NAME="insertRecipes";
+            final String SOAP_ACTION=NAMESPACE+METHOD_NAME;
+
+            SoapObject request=new SoapObject
+                    (NAMESPACE, METHOD_NAME);
+            //tạo đối tượng SoapObject với tên cate như parameter trong service description
+            SoapObject newRecipes=new
+                    SoapObject(NAMESPACE, "recipe");
+            //truyền giá trị cho các đối số (properties) như service desctiption
+            newRecipes.addProperty("RecipesID",recipes.getRecipesID());
+            newRecipes.addProperty("RawMaterial",recipes.getRawMaterial());
+            newRecipes.addProperty("Processing",recipes.getProcessing());
+            newRecipes.addProperty("Attention",recipes.getAttention());
+            request.addSoapObject(newRecipes);
+
+            SoapSerializationEnvelope envelope=
+                    new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet=true;
+            envelope.setOutputSoapObject(request);
+
+            HttpTransportSE androidHttpTransport=
+                    new HttpTransportSE(URL);
+            androidHttpTransport.call(SOAP_ACTION, envelope);
+            //vì hàm insertCatalog trả về kiểu int
+            SoapPrimitive soapPrimitive= (SoapPrimitive)
+                    envelope.getResponse();
+            //chuyển về int để kiểm tra insert thành công hay thất bại
+            //int ret=Integer.parseInt(soapPrimitive.toString());
+            int ret=1;
+            String msg="Insert Recipes Successful";
+            if(ret<=0)
+                msg="Insert Recipes Failed";
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(this, "Insert Recipes Failed", Toast.LENGTH_LONG).show();
+        }
     }
     private int loadProductID() {
         try{

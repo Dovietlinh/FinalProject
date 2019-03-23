@@ -85,7 +85,8 @@
 
                     android:src="@color/colorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtName" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtName"
+                    tools:src="@drawable/food" />
 
                 <Button
                     android:id="@+id/btnChoose"
