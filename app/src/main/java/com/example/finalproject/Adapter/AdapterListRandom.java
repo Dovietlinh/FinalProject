@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +22,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-public class AdapterListEating extends BaseAdapter {
+public class AdapterListRandom extends BaseAdapter {
     private Activity context;
     private int layout;
     private List<Product> productList;
 
-    public AdapterListEating(Activity context, int layout, List<Product> productList) {
+    public AdapterListRandom(Activity context, int layout, List<Product> productList) {
         this.context = context;
         this.layout = layout;
         this.productList = productList;
@@ -56,18 +55,20 @@ public class AdapterListEating extends BaseAdapter {
             listEating = context.getLayoutInflater().inflate(layout, null);
         }
         TextView txtName = listEating.findViewById(R.id.txtName);
-        TextView txtType = listEating.findViewById(R.id.txtType);
+        TextView txtHashTag = listEating.findViewById(R.id.txtHashTag);
+        TextView txtAssess = listEating.findViewById(R.id.txtAssess);
         ImageView imageView = listEating.findViewById(R.id.imageView);
 
         txtName.setText(productList.get(position).getpName());
+        txtAssess.setText(productList.get(position).getpAssess() +"/10");
         if(productList.get(position).getpType() == 1){
-            txtType.setText("Món mặn");
+            txtHashTag.setText("Món chính");
         }else if(productList.get(position).getpType() == 2){
-            txtType.setText("Món canh");
+            txtHashTag.setText("Món canh");
         }else if(productList.get(position).getpType() == 3){
-            txtType.setText("Món tráng miệng");
+            txtHashTag.setText("Món tráng miệng");
         }else {
-            txtType.setText("Món khác");
+            txtHashTag.setText("Món khác");
         }
         imageView.setImageBitmap(download_Image(productList.get(position).getpImage()));
 

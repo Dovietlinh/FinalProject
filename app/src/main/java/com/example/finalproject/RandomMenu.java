@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.finalproject.Adapter.AdapterListEating;
+import com.example.finalproject.Adapter.AdapterListRandom;
 import com.example.finalproject.Entity.Product;
 
 import org.ksoap2.SoapEnvelope;
@@ -138,8 +139,8 @@ public class RandomMenu extends AppCompatActivity {
                 }
                 productList.add(product);
             }
-            AdapterListEating adapterListEating = new AdapterListEating(this, R.layout.layout_eating, productList);
-            listRandom.setAdapter(adapterListEating);
+            AdapterListRandom adapterListRandom = new AdapterListRandom(this, R.layout.layout_random, productList);
+            listRandom.setAdapter(adapterListRandom);
         }
         catch(Exception e){}}
 }
