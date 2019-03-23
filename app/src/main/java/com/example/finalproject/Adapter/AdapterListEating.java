@@ -59,11 +59,19 @@ public class AdapterListEating extends BaseAdapter {
             listEating = context.getLayoutInflater().inflate(layout, null);
         }
         TextView txtName = listEating.findViewById(R.id.txtName);
-        TextView txtDescription = listEating.findViewById(R.id.txtDescription);
+        TextView txtType = listEating.findViewById(R.id.txtType);
         ImageView imageView = listEating.findViewById(R.id.imageView);
 
         txtName.setText(productList.get(position).getpName());
-        txtDescription.setText(productList.get(position).getpDescription());
+        if(productList.get(position).getpType() == 1){
+            txtType.setText("Món mặn");
+        }else if(productList.get(position).getpType() == 2){
+            txtType.setText("Món canh");
+        }else if(productList.get(position).getpType() == 3){
+            txtType.setText("Món tráng miệng");
+        }else {
+            txtType.setText("Món khác");
+        }
         imageView.setImageBitmap(download_Image(productList.get(position).getpImage()));
 
         listEating.setOnClickListener(new View.OnClickListener() {
@@ -74,9 +82,6 @@ public class AdapterListEating extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
-        if(position % 2 == 0){
-            listEating.setBackgroundColor(Color.LTGRAY);
-        }
         return listEating;
     }
 
