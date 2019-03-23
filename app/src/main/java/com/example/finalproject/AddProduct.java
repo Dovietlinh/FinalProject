@@ -191,11 +191,11 @@ public class AddProduct extends Activity {
                     envelope.getResponse();
             //chuyển về int để kiểm tra insert thành công hay thất bại
             //int ret=Integer.parseInt(soapPrimitive.toString());
-            int ret=1;
-            String msg="Insert Cate Successful";
-            if(ret<=0)
-                msg="Insert Cate Failed";
-            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+//            int ret=1;
+//            String msg="Insert Cate Successful";
+//            if(ret<=0)
+//                msg="Insert Cate Failed";
+//            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
         }
         catch(Exception e)
         {
@@ -240,7 +240,7 @@ public class AddProduct extends Activity {
                                     product.setpName(txtName.getText().toString());
                                     product.setpType(type);
                                     product.setpStatus(true);
-                                    product.setpAssess(0);
+                                    product.setpAssess(5);
 
                                     // Here, thisActivity is the current activity
                                     if (ContextCompat.checkSelfPermission(AddProduct.this,
@@ -254,20 +254,23 @@ public class AddProduct extends Activity {
                                                     1);
                                         }
                                     } else {
+                                        if(product.getpName().isEmpty()){
+                                            Toast.makeText(AddProduct.this, "Sorry", Toast.LENGTH_SHORT).show();
+                                        }
                                         uploadProduct(product);
                                     }
 
                                 }
                             });
                             progressDialog.dismiss();
-                            Toast.makeText(AddProduct.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AddProduct.this, "Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(AddProduct.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AddProduct.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
