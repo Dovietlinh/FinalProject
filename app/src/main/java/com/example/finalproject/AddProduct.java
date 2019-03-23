@@ -55,7 +55,6 @@ public class AddProduct extends Activity {
     private final int PICK_IMAGE_REQUEST = 71;
 
     private ImageView imageView;
-    private Button btnImage;
     private Spinner spnType;
     private EditText txtDescription;
     @Override
@@ -69,7 +68,6 @@ public class AddProduct extends Activity {
         spnCategory=findViewById(R.id.spnCategory);
         txtName=findViewById(R.id.txtName);
         imageView=findViewById(R.id.imageProduct);
-        btnImage=findViewById(R.id.btnChoose);
         spnType=findViewById(R.id.spnType);
         txtDescription=findViewById(R.id.txtDescription);
         List<String> listCategory=new ArrayList<>();
@@ -83,7 +81,7 @@ public class AddProduct extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spnCategory.setAdapter(adapter);
 
-        btnImage.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(AddProduct.this,
