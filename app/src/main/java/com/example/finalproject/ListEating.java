@@ -2,12 +2,17 @@ package com.example.finalproject;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -25,11 +30,10 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListEating extends Activity {
+public class ListEating extends AppCompatActivity {
 
     private List<Product> productList;
     private ListView listViewEating;
-    private SearchView searchView;
     final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";
 
     @Override
@@ -42,7 +46,6 @@ public class ListEating extends Activity {
         StrictMode.setThreadPolicy(policy);
 
         listViewEating = findViewById(R.id.listViewEating);
-        searchView = findViewById(R.id.searchViewEating);
         productList = new ArrayList<>();
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(ListEating.this,
@@ -58,6 +61,18 @@ public class ListEating extends Activity {
         } else {
             LoadAll();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Thư viện món ăn");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.menuSearch);
+        final SearchView searchView = (SearchView)item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -70,6 +85,33 @@ public class ListEating extends Activity {
                 return false;
             }
         });
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.menuHome:
+                Intent intent = new Intent(ListEating.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.menuRandom:
+                Intent intent1 = new Intent(ListEating.this, RandomMenu.class);
+                startActivity(intent1);
+                finish();
+                return true;
+            case R.id.menuShare:
+                Intent intent2 = new Intent(ListEating.this, AddProduct.class);
+                startActivity(intent2);
+                finish();
+                return true;
+            default:break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void SearchProductByName(String productName){

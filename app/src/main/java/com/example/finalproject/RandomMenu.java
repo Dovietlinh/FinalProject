@@ -2,15 +2,21 @@ package com.example.finalproject;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.example.finalproject.Adapter.AdapterListEating;
 import com.example.finalproject.Entity.Product;
@@ -24,11 +30,10 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomMenu extends Activity {
+public class RandomMenu extends AppCompatActivity {
 
     private List<Product> productList;
     private ListView listRandom;
-    private Button btnOtherMenu, btnBack;
     final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";
 
     @Override
@@ -42,8 +47,6 @@ public class RandomMenu extends Activity {
         StrictMode.setThreadPolicy(policy);
 
         listRandom = findViewById(R.id.listRandom);
-        btnOtherMenu = findViewById(R.id.btnOtherMenu);
-        btnBack = findViewById(R.id.btnBack);
         productList = new ArrayList<>();
 
         // Here, thisActivity is the current activity
@@ -60,18 +63,45 @@ public class RandomMenu extends Activity {
         } else {
             RandomMenu();
         }
-        btnOtherMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Ăn gì hôm nay?");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_load, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.menuRotate:
                 RandomMenu();
-            }
-        });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                return true;
+            case R.id.menuHome:
+                Intent intent = new Intent(RandomMenu.this, MainActivity.class);
+                startActivity(intent);
                 finish();
-            }
-        });
+                return true;
+            case R.id.menuList:
+                Intent intent1 = new Intent(RandomMenu.this, ListEating.class);
+                startActivity(intent1);
+                finish();
+                return true;
+            case R.id.menuShare:
+                Intent intent2 = new Intent(RandomMenu.this, AddProduct.class);
+                startActivity(intent2);
+                finish();
+                return true;
+            default:break;
+        }
+        return super.onOptionsItemSelected(item);
     }
     private void RandomMenu() {
         try{

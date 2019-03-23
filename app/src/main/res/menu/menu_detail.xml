@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuHome"
+        android:title="Trang chủ"
+        app:showAsAction="collapseActionView"></item>
+    <item
+        android:id="@+id/menuList"
+        android:title="Thư viện món ăn"
+        app:showAsAction="collapseActionView"></item>
+    <item
+        android:id="@+id/menuRandom"
+        android:title="Ăn gì hôm nay"
+        app:showAsAction="collapseActionView"></item>
+    <item
+        android:id="@+id/menuShare"
+        android:title="Chia sẻ công thức món ăn"
+        app:showAsAction="collapseActionView"></item>
+</menu>

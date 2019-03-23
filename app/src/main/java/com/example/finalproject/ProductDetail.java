@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,7 +25,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class ProductDetail extends Activity {
+public class ProductDetail extends AppCompatActivity {
     private TextView txtNameProduct, txtDescriptionProduct, txtTypeProduct;
     private ImageView imageViewProduct;
     private Button btnBack, btnRecipes;
@@ -86,5 +90,46 @@ public class ProductDetail extends Activity {
             Log.e("Hub","Error getting the image from server : " + e.getMessage());
         }
         return bm;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Chi tiết món ăn");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_detail, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.menuHome:
+                Intent intent = new Intent(ProductDetail.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.menuList:
+                Intent intent1 = new Intent(ProductDetail.this, ListEating.class);
+                startActivity(intent1);
+                finish();
+                return true;
+            case R.id.menuRandom:
+                Intent intent2 = new Intent(ProductDetail.this, RandomMenu.class);
+                startActivity(intent2);
+                finish();
+                return true;
+            case R.id.menuShare:
+                Intent intent3 = new Intent(ProductDetail.this, AddProduct.class);
+                startActivity(intent3);
+                finish();
+                return true;
+            default:break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
