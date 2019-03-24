@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
@@ -89,7 +90,11 @@ public class AddRecipes extends Activity {
                                     1);
                         }
                     } else {
-                        uploadRecipes(recipes);
+                        if(recipes.getAttention().isEmpty()||recipes.getProcessing().isEmpty()||recipes.getRawMaterial().isEmpty()){
+                            Toast.makeText(AddRecipes.this,"Input not empty",Toast.LENGTH_LONG).show();
+                        }else{
+                            uploadRecipes(recipes);
+                        }
                     }
                 }
             }
@@ -125,18 +130,15 @@ public class AddRecipes extends Activity {
             //vì hàm insertCatalog trả về kiểu int
             SoapPrimitive soapPrimitive= (SoapPrimitive)
                     envelope.getResponse();
-            //chuyển về int để kiểm tra insert thành công hay thất bại
-            //int ret=Integer.parseInt(soapPrimitive.toString());
-            int ret=1;
-            String msg="Insert Recipes Successful";
-            if(ret<=0)
-                msg="Insert Recipes Failed";
-            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Insert Recipes Successful", Toast.LENGTH_LONG).show();
         }
         catch(Exception e)
         {
             Toast.makeText(this, "Insert Recipes Failed", Toast.LENGTH_LONG).show();
         }
+        Intent intent=new Intent(AddRecipes.this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
     private int loadProductID() {
         try{
