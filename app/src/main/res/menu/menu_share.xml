@@ -17,8 +17,4 @@
         android:id="@+id/menuRandom"
         android:title="Ăn gì hôm nay"
         app:showAsAction="collapseActionView"></item>
-    <item
-        android:id="@+id/menuShare"
-        android:title="Chia sẻ công thức"
-        app:showAsAction="collapseActionView"></item>
 </menu>

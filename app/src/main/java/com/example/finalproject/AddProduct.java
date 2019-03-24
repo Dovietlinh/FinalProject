@@ -12,8 +12,12 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,7 +47,7 @@ import java.util.UUID;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
-public class AddProduct extends Activity {
+public class AddProduct extends AppCompatActivity {
     private Spinner spnCategory;
     private EditText txtName;
 
@@ -283,5 +287,46 @@ public class AddProduct extends Activity {
                         }
                     });
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Chia sẻ món ăn");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_share, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.menuHome:
+                Intent intent = new Intent(AddProduct.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.menuList:
+                Intent intent1 = new Intent(AddProduct.this, ListEating.class);
+                startActivity(intent1);
+                finish();
+                return true;
+            case R.id.menuRandom:
+                Intent intent2 = new Intent(AddProduct.this, RandomMenu.class);
+                startActivity(intent2);
+                finish();
+                return true;
+            case R.id.menuCategory:
+                Intent intent3 = new Intent(AddProduct.this, ListCategory.class);
+                startActivity(intent3);
+                finish();
+                return true;
+            default:break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

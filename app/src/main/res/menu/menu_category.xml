@@ -15,6 +15,6 @@
         app:showAsAction="collapseActionView"></item>
     <item
         android:id="@+id/menuShare"
-        android:title="Chia sẻ công thức món ăn"
+        android:title="Chia sẻ công thức"
         app:showAsAction="collapseActionView"></item>
 </menu>

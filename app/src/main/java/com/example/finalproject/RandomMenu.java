@@ -95,6 +95,11 @@ public class RandomMenu extends AppCompatActivity {
                 startActivity(intent1);
                 finish();
                 return true;
+            case R.id.menuCategory:
+                Intent intent4 = new Intent(RandomMenu.this, ListCategory.class);
+                startActivity(intent4);
+                finish();
+                return true;
             case R.id.menuShare:
                 Intent intent2 = new Intent(RandomMenu.this, AddProduct.class);
                 startActivity(intent2);

@@ -15,7 +15,11 @@
         android:title="Thư viện món ăn"
         app:showAsAction="collapseActionView"></item>
     <item
+        android:id="@+id/menuCategory"
+        android:title="Nhóm các món ăn"
+        app:showAsAction="collapseActionView"></item>
+    <item
         android:id="@+id/menuShare"
-        android:title="Chia sẻ công thức món ăn"
+        android:title="Chia sẻ công thức"
         app:showAsAction="collapseActionView"></item>
 </menu>
