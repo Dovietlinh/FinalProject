@@ -135,11 +135,11 @@ public class AddRecipes extends AppCompatActivity {
             //vì hàm insertCatalog trả về kiểu int
             SoapPrimitive soapPrimitive= (SoapPrimitive)
                     envelope.getResponse();
-            Toast.makeText(this, "Insert Recipes Successful", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Chia sẻ món ăn thành công", Toast.LENGTH_LONG).show();
         }
         catch(Exception e)
         {
-            Toast.makeText(this, "Insert Recipes Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Insert Failed", Toast.LENGTH_LONG).show();
         }
         Intent intent=new Intent(AddRecipes.this,MainActivity.class);
         startActivity(intent);
