@@ -33,7 +33,7 @@
                 android:layout_marginTop="25dp"
                 android:ems="10"
                 android:hint="Nguyên liệu"
-                android:inputType="textPersonName" />
+                android:inputType="textMultiLine" />
 
             <EditText
                 android:id="@+id/txtProcessing"
@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:ems="10"
-                android:hint="Các bước thực hiện"
-                android:inputType="textPersonName" />
+                android:hint="Các bước thực hiện\nBước 1:\nBước 2:\nBước 3:"
+                android:inputType="textMultiLine" />
 
             <EditText
                 android:id="@+id/txtAttention"
@@ -51,7 +51,7 @@
                 android:layout_marginTop="15dp"
                 android:ems="10"
                 android:hint="Chú ý"
-                android:inputType="textPersonName" />
+                android:inputType="textMultiLine" />
 
             <Button
                 android:id="@+id/btnShare"
@@ -61,5 +61,4 @@
                 android:text="Share" />
         </LinearLayout>
     </ScrollView>
-
 </android.support.constraint.ConstraintLayout>
