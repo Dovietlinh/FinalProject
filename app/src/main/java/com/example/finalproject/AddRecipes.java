@@ -9,6 +9,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +33,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddRecipes extends Activity {
+public class AddRecipes extends AppCompatActivity {
     //private List<Product> productList;
     final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";
     private Button btnShare;
@@ -164,5 +169,45 @@ public class AddRecipes extends Activity {
         catch(Exception e){
             return 0;
         }}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Chia sẻ công thức");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_share, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.menuHome:
+                Intent intent = new Intent(AddRecipes.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.menuList:
+                Intent intent1 = new Intent(AddRecipes.this, ListEating.class);
+                startActivity(intent1);
+                finish();
+                return true;
+            case R.id.menuRandom:
+                Intent intent2 = new Intent(AddRecipes.this, RandomMenu.class);
+                startActivity(intent2);
+                finish();
+                return true;
+            case R.id.menuCategory:
+                Intent intent3 = new Intent(AddRecipes.this, ListCategory.class);
+                startActivity(intent3);
+                finish();
+                return true;
+            default:break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
