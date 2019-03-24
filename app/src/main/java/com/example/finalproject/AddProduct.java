@@ -148,8 +148,6 @@ public class AddProduct extends Activity {
             }
         } else {
             uploadImage();
-            Intent intent=new Intent(AddProduct.this,AddRecipes.class);
-            startActivity(intent);
         }
 
 
@@ -187,6 +185,13 @@ public class AddProduct extends Activity {
             //vì hàm insertCatalog trả về kiểu int
             SoapPrimitive soapPrimitive= (SoapPrimitive)
                     envelope.getResponse();
+            //chuyển về int để kiểm tra insert thành công hay thất bại
+            //int ret=Integer.parseInt(soapPrimitive.toString());
+//            int ret=1;
+            String msg="Insert Product Successful";
+//            if(ret<=0)
+//                msg="Insert Cate Failed";
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
         }
         catch(Exception e)
         {
@@ -246,9 +251,14 @@ public class AddProduct extends Activity {
                                         }
                                     } else {
                                         if(product.getpName().isEmpty()){
-                                            Toast.makeText(AddProduct.this, "Sorry", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AddProduct.this, "Input not empty", Toast.LENGTH_SHORT).show();
                                         }
-                                        uploadProduct(product);
+                                        else{
+                                            uploadProduct(product);
+                                            Intent intent=new Intent(AddProduct.this,AddRecipes.class);
+                                            startActivity(intent);
+                                        }
+
                                     }
 
                                 }
