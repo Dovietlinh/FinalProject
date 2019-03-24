@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.finalproject.Adapter.AdapterListEating;
+import com.example.finalproject.Entity.Category;
 import com.example.finalproject.Entity.Product;
 
 import org.ksoap2.SoapEnvelope;
@@ -34,6 +35,7 @@ public class ListEating extends AppCompatActivity {
 
     private List<Product> productList;
     private ListView listViewEating;
+    private Category category = null;
     final String URL="http://linhdv106.somee.com/WebService.asmx?WSDL";
 
     @Override
@@ -47,6 +49,8 @@ public class ListEating extends AppCompatActivity {
 
         listViewEating = findViewById(R.id.listViewEating);
         productList = new ArrayList<>();
+        Intent intent = getIntent();
+        category = (Category) intent.getSerializableExtra("Category");
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(ListEating.this,
                 Manifest.permission.INTERNET)
@@ -59,18 +63,29 @@ public class ListEating extends AppCompatActivity {
                         1);
             }
         } else {
-            LoadAll();
+            if(category == null){
+                LoadAll();
+            }else {
+                LoadProductByCategoryID(category.getCategoryID());
+            }
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Thư viện món ăn");
+        if(category == null){
+            actionBar.setTitle("Thư viện món ăn");
+        }else {
+            actionBar.setTitle(category.getcName());
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search, menu);
+        if(category == null){
+            inflater.inflate(R.menu.menu_search, menu);
+        }else {
+            inflater.inflate(R.menu.menu_list_product_by_category, menu);
+        }
         MenuItem item = menu.findItem(R.id.menuSearch);
         final SearchView searchView = (SearchView)item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -81,7 +96,11 @@ public class ListEating extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                SearchProductByName(searchView.getQuery().toString());
+                if(category == null){
+                    SearchProductByName(searchView.getQuery().toString());
+                }else {
+                    SearchProductByNameAndCategoryID(searchView.getQuery().toString(),category.getCategoryID());
+                }
                 return false;
             }
         });
@@ -97,6 +116,16 @@ public class ListEating extends AppCompatActivity {
             case R.id.menuHome:
                 Intent intent = new Intent(ListEating.this, MainActivity.class);
                 startActivity(intent);
+                finish();
+                return true;
+            case R.id.menuList:
+                Intent intent4 = new Intent(ListEating.this, ListEating.class);
+                startActivity(intent4);
+                finish();
+                return true;
+            case R.id.menuCategory:
+                Intent intent3 = new Intent(ListEating.this, ListCategory.class);
+                startActivity(intent3);
                 finish();
                 return true;
             case R.id.menuRandom:
@@ -121,6 +150,49 @@ public class ListEating extends AppCompatActivity {
             final String SOAP_ACTION=NAMESPACE+METHOD_NAME;
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
             request.addProperty("input", productName);
+            SoapSerializationEnvelope envelope =
+                    new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet=true;
+            envelope.setOutputSoapObject(request);
+            MarshalFloat marshal = new MarshalFloat();
+            marshal.register(envelope);
+            HttpTransportSE androidHttpTransport =
+                    new HttpTransportSE(URL);
+            androidHttpTransport.call(SOAP_ACTION, envelope);
+            SoapObject soapArray = (SoapObject) envelope.getResponse();
+            productList.clear();
+            for(int i = 0; i < soapArray.getPropertyCount(); i++)
+            {
+                SoapObject soapItem =(SoapObject) soapArray.getProperty(i);
+                Product product = new Product();
+                product.setProductID(Integer.parseInt(soapItem.getProperty("ProductID").toString()));
+                product.setCategoryID(Integer.parseInt(soapItem.getProperty("CategoryID").toString()));
+                product.setpName(soapItem.getProperty("Name").toString());
+                product.setpImage(soapItem.getProperty("Image").toString());
+                product.setpDescription(soapItem.getProperty("Description").toString());
+                product.setpAssess(Integer.parseInt(soapItem.getProperty("Assess").toString()));
+                product.setpType(Integer.parseInt(soapItem.getProperty("Type").toString()));
+                if(Boolean.parseBoolean(soapItem.getProperty("Status").toString()) == true) {
+                    product.setpStatus(true);
+                }else {
+                    product.setpStatus(false);
+                }
+                productList.add(product);
+            }
+            AdapterListEating adapterListEating = new AdapterListEating(this, R.layout.layout_eating, productList);
+            listViewEating.setAdapter(adapterListEating);
+        }
+        catch(Exception e) {}
+    }
+
+    private void SearchProductByNameAndCategoryID(String productName, int categoryID){
+        try{
+            final String NAMESPACE="http://tempuri.org/";
+            final String METHOD_NAME="FindProductByNameAndCategory";
+            final String SOAP_ACTION=NAMESPACE+METHOD_NAME;
+            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+            request.addProperty("name", productName);
+            request.addProperty("categoryID", categoryID);
             SoapSerializationEnvelope envelope =
                     new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
@@ -195,5 +267,47 @@ public class ListEating extends AppCompatActivity {
             listViewEating.setAdapter(adapterListEating);
         }
         catch(Exception e){}}
+
+    private void LoadProductByCategoryID( int categoryID) {
+        try{
+            final String NAMESPACE="http://tempuri.org/";
+            final String METHOD_NAME="getListProductByIdCategory";
+            final String SOAP_ACTION=NAMESPACE+METHOD_NAME;
+            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+            request.addProperty("id", categoryID);
+            SoapSerializationEnvelope envelope =
+                    new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet=true;
+            envelope.setOutputSoapObject(request);
+            MarshalFloat marshal = new MarshalFloat();
+            marshal.register(envelope);
+            HttpTransportSE androidHttpTransport =
+                    new HttpTransportSE(URL);
+            androidHttpTransport.call(SOAP_ACTION, envelope);
+            SoapObject soapArray = (SoapObject) envelope.getResponse();
+            productList.clear();
+            for(int i = 0; i < soapArray.getPropertyCount(); i++)
+            {
+                SoapObject soapItem =(SoapObject) soapArray.getProperty(i);
+                Product product = new Product();
+                product.setProductID(Integer.parseInt(soapItem.getProperty("ProductID").toString()));
+                product.setCategoryID(Integer.parseInt(soapItem.getProperty("CategoryID").toString()));
+                product.setpName(soapItem.getProperty("Name").toString());
+                product.setpImage(soapItem.getProperty("Image").toString());
+                product.setpDescription(soapItem.getProperty("Description").toString());
+                product.setpAssess(Integer.parseInt(soapItem.getProperty("Assess").toString()));
+                product.setpType(Integer.parseInt(soapItem.getProperty("Type").toString()));
+                if(Boolean.parseBoolean(soapItem.getProperty("Status").toString()) == true) {
+                    product.setpStatus(true);
+                }else {
+                    product.setpStatus(false);
+                }
+                productList.add(product);
+            }
+            AdapterListEating adapterListEating = new AdapterListEating(this, R.layout.layout_eating, productList);
+            listViewEating.setAdapter(adapterListEating);
+        }
+        catch(Exception e) {}
+    }
 }
 

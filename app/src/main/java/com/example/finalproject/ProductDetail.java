@@ -118,6 +118,11 @@ public class ProductDetail extends AppCompatActivity {
                 startActivity(intent1);
                 finish();
                 return true;
+            case R.id.menuCategory:
+                Intent intent4 = new Intent(ProductDetail.this, ListCategory.class);
+                startActivity(intent4);
+                finish();
+                return true;
             case R.id.menuRandom:
                 Intent intent2 = new Intent(ProductDetail.this, RandomMenu.class);
                 startActivity(intent2);

@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
     private Button btnRandom;
     private Button btnAdd;
     private Button btnExit;
+    private Button btnCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,15 @@ public class MainActivity extends Activity {
         btnAdd=findViewById(R.id.btnAdd);
         btnExit=findViewById(R.id.btnExit);
         btnRandom=findViewById(R.id.btnRandom);
+        btnCategory=findViewById(R.id.btnCategory);
 
+        btnCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ListCategory.class);
+                startActivity(intent);
+            }
+        });
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

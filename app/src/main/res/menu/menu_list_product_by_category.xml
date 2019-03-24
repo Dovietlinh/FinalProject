@@ -12,6 +12,10 @@
         android:title="Trang chủ"
         app:showAsAction="collapseActionView"></item>
     <item
+        android:id="@+id/menuList"
+        android:title="Thư viện món ăn"
+        app:showAsAction="collapseActionView"></item>
+    <item
         android:id="@+id/menuCategory"
         android:title="Nhóm các món ăn"
         app:showAsAction="collapseActionView"></item>
